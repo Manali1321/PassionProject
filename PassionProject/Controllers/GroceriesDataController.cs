@@ -34,20 +34,29 @@ namespace PassionProject.Controllers
             return GroceriesDtos;
         }
 
-        /*// GET: api/Groceries/5
+        // GET: api/AnimalData/FindGrocery/5
         [ResponseType(typeof(Grocery))]
-        public IHttpActionResult GetGrocery(int id)
+        [HttpGet]
+        public IHttpActionResult FindGrocery(int id)
         {
-            Grocery grocery = db.Groceries.Find(id);
-            if (grocery == null)
+            Grocery Grocery = db.Groceries.Find(id);
+            GroceryDto GroceryDto = new GroceryDto()
+            {
+                ProductId = Grocery.ProductId,
+                Upc = Grocery.Upc,
+                Name = Grocery.Name,
+                Weight = Grocery.Weight,
+                Stock= Grocery.Stock
+            };
+            if (Grocery == null)
             {
                 return NotFound();
             }
 
-            return Ok(grocery);
+            return Ok(GroceryDto);
         }
 
-        // PUT: api/Groceries/5
+        /*// PUT: api/Groceries/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutGrocery(int id, Grocery grocery)
         {

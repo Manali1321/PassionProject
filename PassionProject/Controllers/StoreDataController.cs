@@ -23,10 +23,10 @@ namespace PassionProject.Controllers
             List<Store> stores = db.Stores.ToList();
             List<StoreDto> StoreDtos = new List<StoreDto>();
 
-            stores.ForEach(s => StoreDtos.Add(new StoreDto()
+            stores.ForEach(store => StoreDtos.Add(new StoreDto()
             {
-                StoreID = s.StoreID,
-                Name = s.Name
+                StoreID = store.StoreID,
+                Name = store.Name
 
             }));
 
@@ -39,93 +39,100 @@ namespace PassionProject.Controllers
         public IHttpActionResult FindStore(int id)
         {
             Store store = db.Stores.Find(id);
+            StoreDto StoreDto = new StoreDto()
+            {
+                StoreID = store.StoreID,
+                Name = store.Name
+            };
             if (store == null)
             {
                 return NotFound();
             }
 
-            return Ok(store);
+            return Ok(StoreDto);
         }
 
-        // POST: api/StoreData/UpdateStore/5
-       /* [ResponseType(typeof(void))]
+        /*// POST: api/StoreData/UpdateStore/5
+            [ResponseType(typeof(void))]
+         [HttpPost]
+         public IHttpActionResult UpdateStore(int id, Store store)
+         {
+             if (!ModelState.IsValid)
+             {
+                 return BadRequest(ModelState);
+             }
+
+             if (id != store.StoreID)
+             {
+                 return BadRequest();
+             }
+
+             db.Entry(store).State = EntityState.Modified;
+
+             try
+             {
+                 db.SaveChanges();
+             }
+             catch (DbUpdateConcurrencyException)
+             {
+                 if (!StoreExists(id))
+                 {
+                     return NotFound();
+                 }
+                 else
+                 {
+                     throw;
+                 }
+             }
+
+             return StatusCode(HttpStatusCode.NoContent);
+         }
+
+         // POST: api/StoreData/AddStore
+         [ResponseType(typeof(Store))]
         [HttpPost]
-        public IHttpActionResult PutStore(int id, Store store)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+         public IHttpActionResult AddStore(Store store)
+         {
+             if (!ModelState.IsValid)
+             {
+                 return BadRequest(ModelState);
+             }
 
-            if (id != store.StoreID)
-            {
-                return BadRequest();
-            }
+             db.Stores.Add(store);
+             db.SaveChanges();
 
-            db.Entry(store).State = EntityState.Modified;
+             return CreatedAtRoute("DefaultApi", new { id = store.StoreID }, store);
+         }
 
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!StoreExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+         // POST: api/StoreData/DeleteStore/5
+         [ResponseType(typeof(Store))]
+        [HttpPost]
+         public IHttpActionResult DeleteStore(int id)
+         {
+             Store store = db.Stores.Find(id);
+             if (store == null)
+             {
+                 return NotFound();
+             }
 
-            return StatusCode(HttpStatusCode.NoContent);
-        }
+             db.Stores.Remove(store);
+             db.SaveChanges();
 
-        // POST: api/StoreData
-        [ResponseType(typeof(Store))]
-        public IHttpActionResult PostStore(Store store)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+             return Ok(store);
+         }
 
-            db.Stores.Add(store);
-            db.SaveChanges();
+         protected override void Dispose(bool disposing)
+         {
+             if (disposing)
+             {
+                 db.Dispose();
+             }
+             base.Dispose(disposing);
+         }
 
-            return CreatedAtRoute("DefaultApi", new { id = store.StoreID }, store);
-        }
-
-        // DELETE: api/StoreData/5
-        [ResponseType(typeof(Store))]
-        public IHttpActionResult DeleteStore(int id)
-        {
-            Store store = db.Stores.Find(id);
-            if (store == null)
-            {
-                return NotFound();
-            }
-
-            db.Stores.Remove(store);
-            db.SaveChanges();
-
-            return Ok(store);
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool StoreExists(int id)
-        {
-            return db.Stores.Count(e => e.StoreID == id) > 0;
-        }*/
+         private bool StoreExists(int id)
+         {
+             return db.Stores.Count(e => e.StoreID == id) > 0;
+         }*/
     }
 }

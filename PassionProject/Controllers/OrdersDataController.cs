@@ -35,7 +35,7 @@ namespace PassionProject.Controllers
             return OrdersDtos;
         }
 
-        // GET: api/OrdersData/5
+        /*// GET: api/OrdersData/FindOrder/5
         [ResponseType(typeof(Order))]
         [HttpGet]
         public IHttpActionResult FindOrder(int id)
@@ -49,7 +49,7 @@ namespace PassionProject.Controllers
             return Ok(order);
         }
 
-        /*// POST: api/OrderData/UpdateOrder/5
+        // POST: api/OrderData/UpdateOrder/5
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateOrder(int id, Order order)
@@ -85,9 +85,10 @@ namespace PassionProject.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/OrdersData
+        // POST: api/OrdersData/AddOrder
         [ResponseType(typeof(Order))]
-        public IHttpActionResult PostOrder(Order order)
+        [HttpPost]
+        public IHttpActionResult AddOrder(Order order)
         {
             if (!ModelState.IsValid)
             {
@@ -100,8 +101,10 @@ namespace PassionProject.Controllers
             return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
         }
 
-        // DELETE: api/OrdersData/5
+        // POST: api/OrdersData/DeleteOrder/5
         [ResponseType(typeof(Order))]
+        [HttpPost]
+
         public IHttpActionResult DeleteOrder(int id)
         {
             Order order = db.Orders.Find(id);
