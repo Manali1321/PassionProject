@@ -13,7 +13,7 @@ namespace PassionProject.Models
 
         public string Name { get; set; }
 
-        //store having many order
+        //Store having many order(One-TO-Many)
         public ICollection<Order> Orders { get; set; }
     }
     public class StoreDto

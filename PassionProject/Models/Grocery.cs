@@ -13,10 +13,12 @@ namespace PassionProject.Models
         public int ProductId { get; set; }
         public string Upc { get; set; }
         public string Name { get; set; }
+
         //Weight in grams
         public int Weight { get; set; }
         public int Stock { get; set; }
 
+        //Orders can have many grocery items(One-To-Many)
         public ICollection<Order> Orders { get; set; }
 
 

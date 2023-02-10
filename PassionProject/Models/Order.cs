@@ -15,12 +15,12 @@ namespace PassionProject.Models
         public int OrderNumber { get; set; }
         public int Quantity { get; set; }
 
-        //store has many order
+        //One Store has many order(Taking Reference from store table)
         [ForeignKey("Store")]
         public int StoreID { get; set; }
         public virtual Store Store { get; set; }
 
-        //each order has many grocery
+        //One order can have many grocery(Taking Reference from grocery table)
         [ForeignKey("Grocery")]
         public int ProductId { get; set; }
         public virtual Grocery Grocery { get; set; }
