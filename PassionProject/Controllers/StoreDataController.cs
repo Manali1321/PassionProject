@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -33,27 +34,26 @@ namespace PassionProject.Controllers
             return StoreDtos;
         }
 
-        // GET: api/StoreData//FindStore/5
+        // GET: api/StoreData/FindStore/5
         [ResponseType(typeof(Store))]
         [HttpGet]
         public IHttpActionResult FindStore(int id)
         {
+
             Store store = db.Stores.Find(id);
+            Debug.WriteLine("hi");
             StoreDto StoreDto = new StoreDto()
             {
                 StoreID = store.StoreID,
                 Name = store.Name
             };
-            if (store == null)
-            {
-                return NotFound();
-            }
+           
 
             return Ok(StoreDto);
         }
 
-        /*// POST: api/StoreData/UpdateStore/5
-            [ResponseType(typeof(void))]
+        // POST: api/StoreData/UpdateStore/5
+         [ResponseType(typeof(void))]
          [HttpPost]
          public IHttpActionResult UpdateStore(int id, Store store)
          {
@@ -104,8 +104,8 @@ namespace PassionProject.Controllers
              return CreatedAtRoute("DefaultApi", new { id = store.StoreID }, store);
          }
 
-         // POST: api/StoreData/DeleteStore/5
-         [ResponseType(typeof(Store))]
+        // POST: api/StoreData/DeleteStore/5
+        [ResponseType(typeof(Store))]
         [HttpPost]
          public IHttpActionResult DeleteStore(int id)
          {
@@ -118,7 +118,7 @@ namespace PassionProject.Controllers
              db.Stores.Remove(store);
              db.SaveChanges();
 
-             return Ok(store);
+             return Ok();
          }
 
          protected override void Dispose(bool disposing)
@@ -133,6 +133,6 @@ namespace PassionProject.Controllers
          private bool StoreExists(int id)
          {
              return db.Stores.Count(e => e.StoreID == id) > 0;
-         }*/
+         }
     }
 }

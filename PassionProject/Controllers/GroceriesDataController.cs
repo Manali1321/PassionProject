@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using PassionProject.Models;
+using System.Diagnostics;
 
 namespace PassionProject.Controllers
 {
@@ -16,7 +17,7 @@ namespace PassionProject.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: api/Groceries/ListGroceries
+        // GET: api/Groceriesdata/Listgroceries
         [HttpGet]
         public IEnumerable<GroceryDto> ListGroceries()
         {
@@ -34,7 +35,7 @@ namespace PassionProject.Controllers
             return GroceriesDtos;
         }
 
-        // GET: api/AnimalData/FindGrocery/5
+        // GET: api/groceriesdata/listgroceries/5
         [ResponseType(typeof(Grocery))]
         [HttpGet]
         public IHttpActionResult FindGrocery(int id)
@@ -56,10 +57,13 @@ namespace PassionProject.Controllers
             return Ok(GroceryDto);
         }
 
-        /*// PUT: api/Groceries/5
+        // Post: api/GroceriesData/UpdateGrocery/5
+        //curl -d @grocery.json -H "content-type:application/json" https://localhost:44376/api/groceriesdata/updategrocery/12
+
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutGrocery(int id, Grocery grocery)
+        public IHttpActionResult UpdateGrocery(int id, Grocery grocery)
         {
+            Debug.WriteLine("update");
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -93,7 +97,7 @@ namespace PassionProject.Controllers
 
         // POST: api/Groceries
         [ResponseType(typeof(Grocery))]
-        public IHttpActionResult PostGrocery(Grocery grocery)
+        public IHttpActionResult AddGrocery(Grocery grocery)
         {
             if (!ModelState.IsValid)
             {
@@ -119,7 +123,7 @@ namespace PassionProject.Controllers
             db.Groceries.Remove(grocery);
             db.SaveChanges();
 
-            return Ok(grocery);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
@@ -134,6 +138,6 @@ namespace PassionProject.Controllers
         private bool GroceryExists(int id)
         {
             return db.Groceries.Count(e => e.ProductId == id) > 0;
-        }*/
+        }
     }
 }

@@ -35,20 +35,28 @@ namespace PassionProject.Controllers
             return OrdersDtos;
         }
 
-        /*// GET: api/OrdersData/FindOrder/5
+        // GET: api/OrdersData/FindOrder/5
         [ResponseType(typeof(Order))]
         [HttpGet]
         public IHttpActionResult FindOrder(int id)
         {
             Order order = db.Orders.Find(id);
+            OrderDto OrderDto=new OrderDto()
+            {
+                Id = order.Id,
+                OrderNumber= order.OrderNumber,
+                Quantity= order.Quantity,
+                StoreId= order.Store.StoreID,
+                ProductId= order.Grocery.ProductId
+            };
             if (order == null)
             {
                 return NotFound();
             }
 
-            return Ok(order);
+            return Ok(OrderDto);
         }
-
+        
         // POST: api/OrderData/UpdateOrder/5
         [ResponseType(typeof(void))]
         [HttpPost]
@@ -116,7 +124,7 @@ namespace PassionProject.Controllers
             db.Orders.Remove(order);
             db.SaveChanges();
 
-            return Ok(order);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)
@@ -131,6 +139,6 @@ namespace PassionProject.Controllers
         private bool OrderExists(int id)
         {
             return db.Orders.Count(e => e.Id == id) > 0;
-        }*/
+        }
     }
 }
