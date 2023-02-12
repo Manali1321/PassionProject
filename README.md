@@ -3,4 +3,6 @@ Inventory counter
 
 User can maintain multiple superstores by onedatabase
 
-Create CRUD.
+Create CRUD with json file by use of terminal.
+
+#asp.net #MVP
