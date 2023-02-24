@@ -1,0 +1,16 @@
+﻿@model IEnumerable<PassionProject.Models.GroceryDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List of Grocery</h2>
+<button><a href="/grocery/new">Create New Grocery Item</a></button>
+
+@foreach (var grocery in Model)
+{
+    <h2><a href="/Grocery/Details/@grocery.ProductId">UPC: @grocery.ProductId</a></h2>
+    <p>Product name: @grocery.Name</p>
+
+
+}
+

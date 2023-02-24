@@ -1,0 +1,39 @@
+﻿@model PassionProject.Models.ViewModels.MyViewModel
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Create New order</h2>
+<form action="/Order/Create" method="POST">
+    <div>
+        <label>Order Number:</label> <input type="number" name="OrderNumber" />
+    </div>
+    <div>
+        <label>Quantity:</label> <input type="number" name="Quantity" />
+    </div>
+    <div>
+        <label>StoreId:</label>
+        <select name="StoreId">
+            @foreach (var store in Model.StoreOptions)
+            {
+                <option value="@store.StoreID">@store.Name</option>
+
+            }
+        </select>
+    </div>
+    <div>
+        <label>ProductID:</label>
+        <select name="ProductID">
+            @foreach (var grocery in Model.GroceryOptions)
+            {
+                <option value="@grocery.ProductId">@grocery.Name</option>
+
+            }
+        </select>
+    </div>
+    <div>
+        <input type="submit" value="Add Order" />
+
+    </div>
+</form>
+

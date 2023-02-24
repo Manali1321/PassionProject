@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -34,6 +35,64 @@ namespace PassionProject.Controllers
 
             return OrdersDtos;
         }
+        /// <summary>
+        /// Gathers information about all orders related to a particular grocery id
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all orders in the database, including their associated grocery matched with a particular grocery id
+        /// </returns>
+        /// <param name="id">grocery id</param>
+        /// <example>
+        /// GET: api/ordersdata/ListOrdersForGrocery/12
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(OrderDto))]
+        public IHttpActionResult ListOrdersForGrocery(int id)
+        {
+            List<Order> Orders = db.Orders.Where(a => a.ProductId == id).ToList();
+            List<OrderDto> orderDtos = new List<OrderDto>();
+
+            Orders.ForEach(a => orderDtos.Add(new OrderDto()
+            {
+                Id = a.Id,
+                Quantity = a.Quantity,
+                StoreId = a.Store.StoreID,
+                OrderNumber = a.OrderNumber,
+                ProductId = a.Grocery.ProductId
+            }));
+
+            return Ok(orderDtos);
+        }
+        /// <summary>
+        /// Gathers information about all orders related to a particular store id
+        /// </summary>
+        /// <returns>
+        /// HEADER: 200 (OK)
+        /// CONTENT: all orders in the database, including their associated store matched with a store id
+        /// </returns>
+        /// <param name="id">store id</param>
+        /// <example>
+        /// GET: api/ordersdata/ListOrdersForStore/6
+        /// </example>
+        [HttpGet]
+        [ResponseType(typeof(OrderDto))]
+        public IHttpActionResult ListOrdersForStore(int id)
+        {
+            List<Order> Orders = db.Orders.Where(a => a.StoreID == id).ToList();
+            List<OrderDto> orderDtos = new List<OrderDto>();
+
+            Orders.ForEach(a => orderDtos.Add(new OrderDto()
+            {
+                Id = a.Id,
+                Quantity = a.Quantity,
+                StoreId = a.Store.StoreID,
+                OrderNumber = a.OrderNumber,
+                ProductId = a.Grocery.ProductId
+            }));
+
+            return Ok(orderDtos);
+        }
 
         // GET: api/OrdersData/FindOrder/5
         [ResponseType(typeof(Order))]
@@ -49,11 +108,6 @@ namespace PassionProject.Controllers
                 StoreId= order.Store.StoreID,
                 ProductId= order.Grocery.ProductId
             };
-            if (order == null)
-            {
-                return NotFound();
-            }
-
             return Ok(OrderDto);
         }
         

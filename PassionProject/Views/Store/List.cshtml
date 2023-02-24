@@ -1,0 +1,12 @@
+﻿@model IEnumerable<PassionProject.Models.StoreDto>
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+<button><a href="/store/new">Create new store</a></button>
+@foreach (var store in Model)
+{
+    <h3><a href="/Store/Details/@store.StoreID">@store.Name</a></h3>
+}
+

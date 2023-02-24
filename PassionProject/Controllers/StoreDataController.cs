@@ -41,7 +41,7 @@ namespace PassionProject.Controllers
         {
 
             Store store = db.Stores.Find(id);
-            Debug.WriteLine("hi");
+            //Debug.WriteLine("hi");
             StoreDto StoreDto = new StoreDto()
             {
                 StoreID = store.StoreID,

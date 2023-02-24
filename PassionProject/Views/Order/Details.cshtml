@@ -1,0 +1,12 @@
+﻿@model PassionProject.Models.OrderDto
+@{
+    ViewBag.Title = "Details";
+}
+<h2><a href="/order/List">Go back to List</a></h2>
+<br/>
+<a href="/Order/Edit/@Model.Id">Update</a>
+<br />
+<p> OrderId: @Model.Id</p>
+<p>Quantity: @Model.Quantity</p>
+
+

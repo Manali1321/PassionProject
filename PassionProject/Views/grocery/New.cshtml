@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>Create Grocery</h2>
+<form action="/Grocery/Create" method="POST">
+    <div>
+        <label>UPC::</label> <input type="text" name="Upc" />
+    </div>
+    <div>
+        <label>Name:</label> <input type="text" name="Name" />
+    </div>
+    <div>
+        <label>Weight(Gram):</label> <input type="number" name="Weight" />
+    </div>
+    <div>
+        <label>Stock:</label> <input type="number" name="Stock" />
+    </div>
+    <div>
+        <input type="submit" value="Add Grocery" />
+    </div>
+</form>
+

@@ -35,7 +35,7 @@ namespace PassionProject.Controllers
             return GroceriesDtos;
         }
 
-        // GET: api/groceriesdata/listgroceries/5
+        // GET: api/groceriesdata/findgroceries/5
         [ResponseType(typeof(Grocery))]
         [HttpGet]
         public IHttpActionResult FindGrocery(int id)
