@@ -31,12 +31,12 @@ namespace PassionProject.Controllers
             string url = "OrdersData/ListOrders";
             HttpResponseMessage response = client.GetAsync(url).Result;
 
-            Debug.WriteLine("This response code is");
-            Debug.WriteLine(response);
+            //Debug.WriteLine("This response code is");
+            //Debug.WriteLine(response);
 
             IEnumerable<OrderDto> orders = response.Content.ReadAsAsync<IEnumerable<OrderDto>>().Result;
-            Debug.WriteLine("number of store");
-            Debug.WriteLine(orders.Count());
+            //Debug.WriteLine("number of store");
+            //Debug.WriteLine(orders.Count());
             return View(orders);
         }
 
@@ -84,8 +84,8 @@ namespace PassionProject.Controllers
         [HttpPost]
         public ActionResult Create(Order order)
         {
-            Debug.WriteLine("the json payload is :");
-            //Debug.WriteLine(animal.AnimalName);
+            //Debug.WriteLine("the json payload is :");
+            Debug.WriteLine(order);
             //objective: add a new animal into our system using the API
             //curl -H "Content-Type:application/json" -d @animal.json https://localhost:44324/api/OrdersData/AddOrder 
             string url = "ordersdata/addorder";
@@ -104,7 +104,7 @@ namespace PassionProject.Controllers
             }
             else
             {
-                return RedirectToAction("Error");
+                return RedirectToAction("List");
             }
         }
 
@@ -115,7 +115,7 @@ namespace PassionProject.Controllers
             UpdateOrder ViewModel = new UpdateOrder();
 
             //the existing order information
-            string url = "orderdata/findorder/" + id;
+            string url = "ordersdata/findorder/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             OrderDto SelectedOrder = response.Content.ReadAsAsync<OrderDto>().Result;
             ViewModel.SelectedOrder = SelectedOrder;
@@ -133,11 +133,11 @@ namespace PassionProject.Controllers
             IEnumerable<StoreDto> StoreOptions = response.Content.ReadAsAsync<IEnumerable<StoreDto>>().Result;
             ViewModel.StoreOptions = StoreOptions;
 
-            ViewModel = new UpdateOrder
-            {
-                StoreOptions = StoreOptions,
-                GroceryOptions = GroceryOptions
-            };
+
+            ViewModel.SelectedOrder = SelectedOrder;
+            ViewModel.StoreOptions = StoreOptions;
+            ViewModel.GroceryOptions = GroceryOptions;
+
             return View(ViewModel);
 
         }
@@ -146,8 +146,10 @@ namespace PassionProject.Controllers
         [HttpPost]  
         public ActionResult Update(int id, Order order)
         {
-            string url = "orderdata/updateorder/" + id;
+            Debug.WriteLine(id);
+            string url = "ordersdata/updateorder/" + id;
             string jsonpayload = jss.Serialize(order);
+            Debug.WriteLine(jsonpayload);
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -163,24 +165,30 @@ namespace PassionProject.Controllers
         }
 
         // GET: order/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "OrdersData/findorder/" + id; ;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            OrderDto selectedorder = response.Content.ReadAsAsync<OrderDto>().Result;
+            return View(selectedorder);
         }
 
         // POST: order/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "OrdersData/deleteorder/" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }

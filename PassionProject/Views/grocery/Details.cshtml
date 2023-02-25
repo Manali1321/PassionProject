@@ -1,10 +1,59 @@
-﻿@model PassionProject.Models.GroceryDto
+﻿
+<style>
+    .grocery-details {
+        margin: 20px 0;
+        padding: 10px;
+        background-color: lightgray;
+        border: 1px solid black;
+    }
 
-@{
-    ViewBag.Title = "Details";
-}
+    .btn {
+        background-color: lightgray;
+        color: black !important;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        border-radius: 5px;
+        font-size: 16px;
+    }
 
-<h2><a href="/Grocery/List">Go Back to List</a></h2>
-<p>UPC: @Model.Upc</p>
-<p>Name of product: @Model.Name</p>
+    .grocery-info {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+    }
 
+    .grocery-info h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 18px;
+     }
+
+    .grocery-details p {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+
+    .grocery-details a {
+        text-decoration: none;
+        color: black;
+        font-weight: bold;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+</style>
+
+<h2>Details of Grocery</h2>
+    <button class=" btn"><a href="/Grocery/List">Go Back to List</a></button>
+    <button class="btn"><a href="/grocery/deleteConfirm/@Model.ProductId">Delete</a></button>
+    <div class="grocery-details">
+        <div class="grocery-info">
+            <p>ProductID:@Model.ProductId </p>
+            <p>UPC: @Model.Upc</p>
+            <p>Name of Product: @Model.Name</p>
+            <p>Stock: @Model.Stock</p>
+            <p>Weight: @Model.Weight</p>
+
+        </div>
+    </div>

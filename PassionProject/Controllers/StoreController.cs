@@ -8,6 +8,7 @@ using System.Diagnostics;
 using PassionProject.Migrations;
 using PassionProject.Models;
 using System.Web.Script.Serialization;
+using PassionProject.Models.ViewModels;
 
 namespace PassionProject.Controllers
 {
@@ -98,44 +99,59 @@ namespace PassionProject.Controllers
         // GET: Store/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            //the existing order information
+            string url = "findstore/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            StoreDto SelectedStore = response.Content.ReadAsAsync<StoreDto>().Result;
+            return View(SelectedStore);
         }
 
-        // POST: Store/Edit/5
+        // POST: Store/Update/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Update(int id, Store store)
         {
-            try
-            {
-                // TODO: Add update logic here
+            string url = "UpdateStore/" + id;
+            string jsonpayload = jss.Serialize(store);
 
-                return RedirectToAction("Index");
-            }
-            catch
+            HttpContent content = new StringContent(jsonpayload);
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(content);
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
 
         // GET: Store/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "findstore/"+id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            StoreDto selectedStore = response.Content.ReadAsAsync<StoreDto>().Result;
+            return View(selectedStore);
         }
 
         // POST: Store/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "DeleteStore/" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }

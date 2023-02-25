@@ -2,5 +2,42 @@
 @{
     ViewBag.Title = "Details";
 }
-<a href="/Store/List">Go back to list</a>
-<h2>Store Name: @Model.Name</h2>
+<style>
+    .btn {
+        background-color: lightgray;
+        color: black !important;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .container {
+        margin-top: 20px;
+    }
+
+    h2 {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+    .store-details {
+        margin: 5px 0;
+        font-size: 16px;
+    }
+    .store-info {
+        margin: 20px 0;
+        padding: 10px;
+        background-color: lightgray;
+        border: 1px solid black;
+    }
+</style>
+<h2>Details of store</h2>
+<button class="btn"><a href="/Store/List">Go back to list</a></button>
+<button class="btn"><a href="/store/Edit/@Model.StoreID">Update</a></button>
+<button class="btn"><a href="/store/deleteConfirm/@Model.StoreID">Delete</a></button>
+<div class="store-details">
+    <div class="store-info">
+        <h2>Store Name: @Model.Name</h2>
+    </div>
+</div>

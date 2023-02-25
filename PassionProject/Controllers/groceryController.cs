@@ -112,25 +112,31 @@ namespace PassionProject.Controllers
             }
         }
 
-        // GET: grocery/Delete/5
-        public ActionResult Delete(int id)
+        // GET: grocery/DeleteConfirm/5
+        public ActionResult DeleteConfirm(int id)
         {
-            return View();
+            string url = "findgrocery/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            GroceryDto selectedGrocery = response.Content.ReadAsAsync<GroceryDto>().Result;
+            return View(selectedGrocery);
         }
 
         // POST: grocery/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id)
         {
-            try
-            {
-                // TODO: Add delete logic here
+            string url = "DeleteGrocery/" + id;
+            HttpContent content = new StringContent("");
+            content.Headers.ContentType.MediaType = "application/json";
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
 
-                return RedirectToAction("Index");
-            }
-            catch
+            if (response.IsSuccessStatusCode)
             {
-                return View();
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
             }
         }
     }

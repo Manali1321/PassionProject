@@ -1,7 +1,7 @@
 ﻿{
-  //"Id":16,
-  "Quantity": 1000,
-  "OrderNumber": 1,
-  "StoreID": 6,
+  "Id":16,
+  "Quantity": 1,
+  "OrderNumber": 1000,
+  "StoreID": 678,
   "ProductId": 12
 }

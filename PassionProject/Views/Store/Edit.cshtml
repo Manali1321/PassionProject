@@ -1,6 +1,7 @@
-﻿
+﻿@model PassionProject.Models.StoreDto
+
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Edit";
 }
 <style>
     form {
@@ -16,6 +17,7 @@
         font-weight: bold;
         margin-bottom: 10px;
     }
+
     input[type="submit"] {
         background-color: gray;
         color: white;
@@ -28,13 +30,19 @@
     }
 </style>
 
-
-<h2>Create New Store</h2>
-<form action="/Store/Create" method="POST">
-    <div>
-        <label>Name:</label> <input type="text" name="Name" />
+<h2>Update Store</h2>
+<form action="/Store/Update/@Model.StoreID" method="POST">
+    <div style="display:none;">
+        @* Pass through the store ID *@
+        <input type="number" name="StoreId" value="@Model.StoreID" />
     </div>
     <div>
-        <input type="submit" value="Add Store" />
+        <label>Name:</label>
+        <input type="text" name="Name" value="@Model.Name" />
+    </div>
+
+    <div>
+        <input type="submit" value="Update Store Name" />
     </div>
 </form>
+

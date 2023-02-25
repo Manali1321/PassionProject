@@ -1,0 +1,27 @@
+﻿@model PassionProject.Models.OrderDto
+@{
+    ViewBag.Title = "DeleteConfirm";
+}
+<style>
+    .btn {
+        background-color: lightgray;
+        color: black !important;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+</style>
+<h2>DeleteConfirm</h2>
+
+<h2>Are you sure you want to delete this Order?</h2>
+<button><a href="/Order/List">Cancel</a></button>
+<h2>Unique ID: @Model.Id</h2>
+<div>Quantity: @Model.Quantity kg</div>
+<div>Order Number: @Model.OrderNumber</div>
+<form action="/Order/Delete/@Model.Id" method="POST">
+    <input type="submit" value="Confirm Delete" />
+
+</form>

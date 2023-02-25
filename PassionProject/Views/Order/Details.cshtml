@@ -2,11 +2,45 @@
 @{
     ViewBag.Title = "Details";
 }
-<h2><a href="/order/List">Go back to List</a></h2>
-<br/>
-<a href="/Order/Edit/@Model.Id">Update</a>
+<style>
+    h2 a {
+        color: #4CAF50;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        margin-right: 10px;
+    }
+
+    .btn {
+        background-color: lightgray;
+        color: black !important;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    p {
+        font-size: 16px;
+        margin-top: 20px;
+        margin-bottom: 10px;
+    }
+    .order {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+    }
+</style>
+<h2>Details of Order</h2>
+<button class="btn"><a href="/Order/List">Go back to List</a></button>
+<button class="btn"><a href="/Order/Edit/@Model.Id">Update</a></button>
+<button class="btn"><a href="/Order/deleteConfirm/@Model.Id">Delete</a></button>
 <br />
-<p> OrderId: @Model.Id</p>
-<p>Quantity: @Model.Quantity</p>
+<div class="order-info">
+    <p> Order ID: @Model.Id</p>
+    <p> Quantity: @Model.Quantity</p>
+</div>
 
 

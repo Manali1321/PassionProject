@@ -3,10 +3,54 @@
     ViewBag.Title = "List";
 }
 
+<style>
+    .store-list {
+        margin: 20px 0;
+        padding: 10px;
+        background-color: lightgray;
+        border: 1px solid black;
+    }
+
+    .btn {
+        background-color: lightgray;
+        color: black !important;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .store-info {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+    }
+
+    .store-info h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 18px;
+     }
+
+    .store-list a {
+        font-size: 18px;
+        font-weight: 600;
+    }
+</style>
+
 <h2>List</h2>
-<button><a href="/store/new">Create new store</a></button>
+<button class="btn"><a href="/store/new">Create New Store</a></button>
+
 @foreach (var store in Model)
 {
-    <h3><a href="/Store/Details/@store.StoreID">@store.Name</a></h3>
+    <div class="store-list">
+        <a href="/Store/Details/@store.StoreID">Store ID: @store.StoreID</a>
+        <div class="store-info">
+            <h3>Store Information</h3>
+            <h3>Name: @store.Name</h3>
+        </div>
+    </div>
 }
 

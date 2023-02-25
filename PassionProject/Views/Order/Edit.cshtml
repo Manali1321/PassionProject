@@ -1,10 +1,55 @@
-﻿@{
+﻿@model PassionProject.Models.ViewModels.UpdateOrder
+@{
     ViewBag.Title = "Edit";
 }
+<style>
+    .for-refer{
+        font-size: 20px;
+        font-weight:600;
+    }
+    form {
+        margin: 20px 0;
+        padding: 20px;
+        background-color: lightgray;
+        border: 1px solid black;
+    }
+
+    label {
+        display: inline-block;
+        width: 100px;
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+
+    input[type="number"],
+    select {
+        padding: 5px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        margin-bottom: 10px;
+        width: 200px;
+    }
+
+    input[type="submit"] {
+        background-color: gray;
+        color: white;
+        padding: 10px 20px;
+        margin-top: 20px;
+        border-radius: 5px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
 
 <h2>Update Order</h2>
 <form action="/Order/Update/@Model.SelectedOrder.Id" method="POST">
+    <div class="for-refer">
+        Product ID: @Model.SelectedOrder.ProductId
+    </div>
     <div>
+        <input type="hidden" name="Id" value="@Model.SelectedOrder.Id" />
         <label>Order Number:</label>
         <input type="number" name="OrderNumber" value="@Model.SelectedOrder.OrderNumber" />
     </div>
@@ -17,10 +62,8 @@
         <select name="StoreId">
             @foreach (var store in Model.StoreOptions)
             {
-
-
-                <option value="@store.StoreID" )>@store.Name</option>
-
+                <option value="@store.StoreID" )>@if (store.StoreID == Model.SelectedOrder.StoreId)
+                {<text>selected</text>}>@store.Name</option>
             }
         </select>
     </div>
@@ -29,8 +72,7 @@
         <select name="ProductID">
             @foreach (var grocery in Model.GroceryOptions)
             {
-                <option value="@grocery.ProductId">@grocery.Name</option>
-
+                <option value="@grocery.ProductId" @if (grocery.ProductId == Model.SelectedOrder.ProductId) { <text> selected</text> }>@grocery.Name</option>
             }
         </select>
     </div>

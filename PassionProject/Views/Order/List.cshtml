@@ -3,10 +3,53 @@
     ViewBag.Title = "List";
 }
 
+<style>
+    .order-list {
+        margin: 20px 0;
+        padding: 10px;
+        background-color: lightgray;
+        border: 1px solid black;
+    }
+
+    .btn {
+        background-color:lightgray;
+        color:black!important;
+        padding: 10px 20px;
+        margin-bottom: 20px;
+        font-weight:700;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .order-info {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: white;
+        border: 1px solid #ccc;
+    }
+
+    .order-info h3 {
+        margin-top: 0;
+        margin-bottom: 10px;
+        font-size: 18px;
+     }
+    .order-list a{
+        font-size:18px;
+        font-weight:600;
+    }
+
+</style>
+
 <h2>List</h2>
-<button><a href="/order/new">Place New order</a></button>
+<button class="btn"><a href="/order/new">Place New Order</a></button>
+
 @foreach (var order in Model)
 {
-    <a href="/Order/Details/@order.Id">Order ID:@order.Id</a>
-    <h2>StoreID: @order.StoreId</h2>
+    <div class="order-list">
+        <a href="/Order/Details/@order.Id">Order ID: @order.Id</a>
+        <div class="order-info">
+            <h3>Order Information</h3>
+            <h3>Store ID: @order.StoreId</h3>
+        </div>
+    </div>
 }

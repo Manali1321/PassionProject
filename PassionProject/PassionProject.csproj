@@ -303,6 +303,10 @@
     <Content Include="Views\Order\Error.cshtml" />
     <Content Include="Views\grocery\Edit.cshtml" />
     <Content Include="Views\Order\Edit.cshtml" />
+    <Content Include="Views\Order\DeleteConfirm.cshtml" />
+    <Content Include="Views\Store\Edit.cshtml" />
+    <Content Include="Views\Store\DeleteConfirm.cshtml" />
+    <Content Include="Views\grocery\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

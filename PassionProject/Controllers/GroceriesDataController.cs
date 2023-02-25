@@ -15,13 +15,18 @@ namespace PassionProject.Controllers
 {
     public class GroceriesDataController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        //private readonly ApplicationDbContext db;
 
+        //public GroceriesDataController(ApplicationDbContext context)
+        //{
+          //  db = context;
+        //}
+        private ApplicationDbContext db = new ApplicationDbContext();
         // GET: api/Groceriesdata/Listgroceries
         [HttpGet]
         public IEnumerable<GroceryDto> ListGroceries()
         {
-            List<Grocery> Groceries =db.Groceries.ToList();
+            List<Grocery> Groceries = db.Groceries.ToList();
             List<GroceryDto> GroceriesDtos = new List<GroceryDto>();
 
             Groceries.ForEach(g => GroceriesDtos.Add(new GroceryDto(){
@@ -61,7 +66,7 @@ namespace PassionProject.Controllers
         //curl -d @grocery.json -H "content-type:application/json" https://localhost:44376/api/groceriesdata/updategrocery/12
 
         [ResponseType(typeof(void))]
-        public IHttpActionResult UpdateGrocery(int id, Grocery grocery)
+        public IHttpActionResult UpdateGrocery(int id, GroceryDto groceryDto)
         {
             Debug.WriteLine("update");
             if (!ModelState.IsValid)
@@ -69,12 +74,22 @@ namespace PassionProject.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != grocery.ProductId)
+            if (id != groceryDto.ProductId)
             {
                 return BadRequest();
             }
 
-            db.Entry(grocery).State = EntityState.Modified;
+            var grocery = db.Groceries.Find(id);
+
+            if (grocery == null)
+            {
+                return NotFound();
+            }
+
+            grocery.Upc = groceryDto.Upc;
+            grocery.Name = groceryDto.Name;
+            grocery.Weight = groceryDto.Weight;
+            grocery.Stock = groceryDto.Stock;
 
             try
             {

@@ -157,10 +157,26 @@ namespace PassionProject.Controllers
                 return BadRequest(ModelState);
             }
 
+            
+
+            //update the grocery table
+            if (order != null)
+            {
+                var grocery = db.Groceries.FirstOrDefault(g => g.ProductId == order.ProductId);
+                if (grocery != null)
+                {
+                    grocery.Stock -= order.Quantity;
+                    db.SaveChanges();
+                }
+                else
+                {
+                    // handle case where grocery item doesn't exist
+                }
+            }
             db.Orders.Add(order);
             db.SaveChanges();
-
             return CreatedAtRoute("DefaultApi", new { id = order.Id }, order);
+
         }
 
         // POST: api/OrdersData/DeleteOrder/5
