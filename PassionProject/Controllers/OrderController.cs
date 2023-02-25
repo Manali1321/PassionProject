@@ -84,15 +84,15 @@ namespace PassionProject.Controllers
         [HttpPost]
         public ActionResult Create(Order order)
         {
+            //Debug.WriteLine(order);
             //Debug.WriteLine("the json payload is :");
-            Debug.WriteLine(order);
             //objective: add a new animal into our system using the API
             //curl -H "Content-Type:application/json" -d @animal.json https://localhost:44324/api/OrdersData/AddOrder 
             string url = "ordersdata/addorder";
 
 
             string jsonpayload = jss.Serialize(order);
-            Debug.WriteLine(jsonpayload);
+            //Debug.WriteLine(jsonpayload);
 
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";

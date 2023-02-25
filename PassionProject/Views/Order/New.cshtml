@@ -53,7 +53,7 @@
     <div>
         <label>StoreId:</label>
         <select name="StoreId">
-            @foreach (var store in Model.StoreOptions)
+            @foreach (var store in @Model.StoreOptions)
             {
                 <option value="@store.StoreID">@store.Name</option>
 
@@ -63,7 +63,7 @@
     <div>
         <label>ProductID:</label>
         <select name="ProductID">
-            @foreach (var grocery in Model.GroceryOptions)
+            @foreach (var grocery in @Model.GroceryOptions)
             {
                 <option value="@grocery.ProductId">@grocery.Name</option>
 

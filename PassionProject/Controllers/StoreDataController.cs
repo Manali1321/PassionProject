@@ -39,16 +39,12 @@ namespace PassionProject.Controllers
         [HttpGet]
         public IHttpActionResult FindStore(int id)
         {
-
             Store store = db.Stores.Find(id);
-            //Debug.WriteLine("hi");
             StoreDto StoreDto = new StoreDto()
             {
                 StoreID = store.StoreID,
                 Name = store.Name
             };
-           
-
             return Ok(StoreDto);
         }
 
@@ -61,12 +57,10 @@ namespace PassionProject.Controllers
              {
                  return BadRequest(ModelState);
              }
-
              if (id != store.StoreID)
              {
                  return BadRequest();
              }
-
              db.Entry(store).State = EntityState.Modified;
 
              try
@@ -89,7 +83,7 @@ namespace PassionProject.Controllers
          }
 
          // POST: api/StoreData/AddStore
-         [ResponseType(typeof(Store))]
+        [ResponseType(typeof(Store))]
         [HttpPost]
          public IHttpActionResult AddStore(Store store)
          {

@@ -27,16 +27,9 @@ namespace PassionProject.Controllers
         {
             //objective: communication with store data api to retrieve a list of store
             //curl https://localhost:44376/api/storedata/liststores
-
             string url = "liststores";
             HttpResponseMessage response=client.GetAsync(url).Result;
-
-            //Debug.WriteLine("This response code is");
-            //Debug.WriteLine(response.StatusCode);
-
             IEnumerable<StoreDto> stores = response.Content.ReadAsAsync<IEnumerable<StoreDto>>().Result;
-           // Debug.WriteLine("number of store");
-            //Debug.WriteLine(stores.Count());
             return View(stores);
         }
 
@@ -45,16 +38,9 @@ namespace PassionProject.Controllers
         {
             //objective: communication with store data api to retrieve a list of store
             //curl https://localhost:44376/api/storedata/findstore/{id}
-
             string url = "findstore/"+id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-
-            //Debug.WriteLine("This response code is");
-            //Debug.WriteLine(response.StatusCode);
-
             StoreDto selectedstore = response.Content.ReadAsAsync<StoreDto>().Result;
-            //Debug.WriteLine("number of store");
-            //Debug.WriteLine(selectedstore.Name);
             return View(selectedstore);
         }
         public ActionResult Error()

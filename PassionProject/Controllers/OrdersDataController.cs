@@ -35,6 +35,8 @@ namespace PassionProject.Controllers
 
             return OrdersDtos;
         }
+
+        ////////////Solve MVP Comment
         /// <summary>
         /// Gathers information about all orders related to a particular grocery id
         /// </summary>
@@ -64,6 +66,7 @@ namespace PassionProject.Controllers
 
             return Ok(orderDtos);
         }
+        ////////////Solve MVP Comment
         /// <summary>
         /// Gathers information about all orders related to a particular store id
         /// </summary>

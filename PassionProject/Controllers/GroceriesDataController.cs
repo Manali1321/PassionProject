@@ -15,12 +15,6 @@ namespace PassionProject.Controllers
 {
     public class GroceriesDataController : ApiController
     {
-        //private readonly ApplicationDbContext db;
-
-        //public GroceriesDataController(ApplicationDbContext context)
-        //{
-          //  db = context;
-        //}
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: api/Groceriesdata/Listgroceries
         [HttpGet]

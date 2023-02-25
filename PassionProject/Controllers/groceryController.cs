@@ -67,18 +67,16 @@ namespace PassionProject.Controllers
         [HttpPost]
         public ActionResult Create(Grocery grocery)
         {
-            Debug.WriteLine(grocery.Upc);
+            //Debug.WriteLine(grocery.Upc);
             //objective: add a new store into our system using the API
             //curl -H "Content-Type:application/json" -d @grocery.json https://localhost:44376/api/groceriesdata/addGrocery
             string url = "addGrocery";
 
 
             string jsonpayload = jss.Serialize(grocery);
-            Debug.WriteLine(jsonpayload);
-
+            //Debug.WriteLine(jsonpayload);
             HttpContent content = new StringContent(jsonpayload);
             content.Headers.ContentType.MediaType = "application/json";
-
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             if (response.IsSuccessStatusCode)
             {
